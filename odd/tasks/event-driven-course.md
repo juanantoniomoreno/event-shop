@@ -93,9 +93,9 @@ from the *why* and move to the new material.
 4. `EventSubscriberInterface`: rewrite one listener as a subscriber and compare the two styles (a
    subscriber is a static event->method map; it wins when one class listens to several events).
 
-**Working tree**: clean. Lesson 0 + Lesson 1 are committed on branch
-`course/lesson-1-event-dispatcher` (base `7600a2c` from `symfony new`). Merging into `master`
-remains the user's decision; no remote is configured and nothing has been pushed.
+**Repo state**: Lessons 0 and 1 are merged into `master` (base `7600a2c` from `symfony new`); the
+working tree was clean at the moment of the merge. No remote is configured and nothing has been
+pushed.
 
 ## Commits (work-unit evidence)
 
@@ -103,9 +103,11 @@ remains the user's decision; no remote is configured and nothing has been pushed
 |---|---|
 | `d479d92` | `chore: fix services.yaml schema and ignore local runtime state` |
 | `e374264` | `feat(events): publish OrderCreated and fan it out to two listeners` |
+| `7dab48e` | `docs: record lesson 1 work-unit commit ids` |
 
-Both are on `course/lesson-1-event-dispatcher`. Commits were created only after the user explicitly
-asked for them.
+All three are on `master`. The `course/lesson-1-event-dispatcher` branch was fast-forward merged into
+`master` and deleted at the user's request, so no merge commit exists. Commits were created only
+after the user explicitly asked for them.
 
 ## Teaching method
 

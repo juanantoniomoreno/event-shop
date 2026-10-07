@@ -30,6 +30,18 @@ user chose a fresh start.
   - [x] 2.4 `EventSubscriberInterface`: rewrite one listener as a subscriber, compare both styles (code)
   - [x] 2.5 Comprehension quiz, evidence recorded, Lesson 2 close-out
 - [ ] Lesson 3: domain — Order entity + state transitions firing domain events
+  - [ ] 3.1 Concept: a domain event reports a *transition*, not a CRUD write; entity/aggregate,
+        invariant, guard, and why the model is the authority on whether something happened (no code)
+  - [ ] 3.2 Architectural problem: the entity must publish without depending on the container or the
+        dispatcher. Record-events-in-the-entity + release-them-from-outside, and why injecting the
+        dispatcher into an entity is wrong (no code)
+  - [ ] 3.3 Code: `Order` entity with explicit states and `transitionTo()` that enforces invariants
+        and records domain events instead of dispatching them
+  - [ ] 3.4 Code: the real emitter — `OrderService` creates/transitions the order, persists it
+        (in-memory repository) and releases recorded events to the dispatcher; `CreateOrderCommand`
+        becomes a thin CLI adapter instead of the emitter
+  - [ ] 3.5 Comprehension quiz (hybrid; distractors rebuilt from the recorded error patterns),
+        evidence recorded, Lesson 3 close-out
 - [ ] Lesson 4: framework events (kernel.request / kernel.response / kernel.terminate)
 - [ ] Lesson 5: Doctrine lifecycle events (prePersist, postUpdate, listeners)
 - [ ] Lesson 6: Messenger — from synchronous dispatch to async transports + workers
@@ -197,7 +209,20 @@ context-losing round trip. Revisit if the writes grow beyond teaching stubs.
   - **2.5 GATE PASSED. Lesson 2 closed** (2026-09-30). The "subscriber as a comodin" pattern from
     2.4 Q2 / 2.5 SA9 was self-corrected in re-check 3, which is the point of the correction round.
 
-## ⏸️ RESUME POINT (Lesson 2 closed and committed; next up Lesson 3)
+## Lesson 3 — delivery log (IN PROGRESS, started 2026-10-01)
+
+Scope decision taken with the user on 2026-10-01 (see 3.1 in the log below): Lesson 3 stays **pure PHP
++ in-memory repository, no Doctrine**. The domain-event concept must not be tangled with the ORM; the
+ORM and its lifecycle events are Lesson 5, which is exactly where the persistence boundary belongs.
+
+Routing note: same as Lesson 2 — interactive teaching with small teaching files and a comprehension
+gate between every step, so it runs inline in the parent session. Revisit if writes grow beyond
+stubs.
+
+Tracking set up 2026-10-01 before the first source write: sub-tasks 3.1-3.5 added, visible todo
+rebuilt, Engram mirror updated. No source file written yet.
+
+## ⏸️ RESUME POINT (Lesson 3 IN PROGRESS; Lesson 2 closed and committed)
 
 **State**: Lessons 0 and 1 complete and verified, including real execution of both listeners.
 `app:order:create` is the emitter. `TrackOrderInAnalytics` already carries `priority: 10`
@@ -209,7 +234,9 @@ kept, and the lesson was committed on a `course/lesson-2-listener-flow` branch p
 merge into `master` (same pattern as Lesson 1).
 Working tree CLEAN. Lesson 2 is committed: two code work units (`4f6d235` feat 2.3 demo, `a4afdb1`
 refactor 2.4 subscriber) plus this docs commit, all fast-forward merged into `master`.
-Next step: **Lesson 3** -- Order entity + state transitions firing domain events.
+Next step: **Lesson 3** -- Order entity + state transitions firing domain events. IN PROGRESS as of
+2026-10-01: tracking created, 3.1 (concept) delivered, awaiting the user's confirmation of the plan
+and of the no-Doctrine scope before any code is written.
 
 **Lesson 2 plan (executed; items 1-4 are DONE -- kept as the lesson outline, see the log above)**:
 1. Consolidate what the user proved by hand: explicit priority turns an implicit, unguaranteed order
